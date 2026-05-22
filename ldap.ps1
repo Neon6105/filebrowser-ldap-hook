@@ -73,7 +73,7 @@ foreach ($group in $conf.ldapGroups) {
   $groupName = $group['Name']
   Write-Verbose "Checking LDAP group name '$groupName'"
   $groupPrincipal = [System.DirectoryServices.AccountManagement.GroupPrincipal]::FindByIdentity($groupContext, "$groupName")
-  if ($userPrincipal -and $groupPrincipal -and $user.IsMemberOf($groupPrincipal)) {
+  if ($userPrincipal -and $groupPrincipal -and $userPrincipal.IsMemberOf($groupPrincipal)) {
     # Allow groups to be blocked, but default to "auth" if not blocked.
     if ($group.ContainsKey("action")) {
       Write-Verbose "Group override! hook.action"
